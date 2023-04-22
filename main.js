@@ -13,6 +13,15 @@ const {
   getProfileFromCache,
 } = require("./auth/auth.js");
 const { logout } = require("./controllers/logout.js");
+const { cat } = require("./controllers/cat.js");
+const { adoptGet, adoptPost } = require("./controllers/adopt.js");
+const {
+  registerGet,
+  registerPost,
+  registerSuccess,
+} = require("./controllers/register.js");
+const { adoption } = require("./controllers/adoption.js");
+const { adoptions } = require("./controllers/adoptions.js");
 
 const app = express();
 const port = 3000;
@@ -38,9 +47,19 @@ app.use((req, res, next) => {
 app.get("/", index);
 app.get("/catImage/:catId", catImage);
 
+app.get("/register", registerGet);
+app.post("/register", registerPost);
+app.get("/registrationSuccess", registerSuccess);
 app.get("/login", loginGet);
 app.post("/login", loginPost);
 app.get("/logout", logout);
+
+app.get("/cat/:catId", cat);
+app.get("/adopt/:catId", adoptGet);
+app.post("/adopt/:catId", adoptPost);
+
+app.get("/adoption/:adoptionId", adoption);
+app.get("/adoptions", adoptions);
 
 app.listen(port, (req, res) => {
   console.log(`server is running on port ${port}`);

@@ -16,8 +16,9 @@ async function main() {
       email: "user@user.pl",
       phone: "+48213769420",
 
+      address: "ul. Fajna 1, Pitulice",
+
       passwordHash: userHash,
-      passwordSalt: userSalt,
     },
   });
 
@@ -31,8 +32,9 @@ async function main() {
       email: "admin@admin.pl",
       phone: "+48420692137",
 
+      address: "",
+
       passwordHash: adminHash,
-      passwordSalt: adminSalt,
     },
   });
 
@@ -40,7 +42,8 @@ async function main() {
     data: {
       picture: fs.readFileSync(imagesPath + "/slodziak1.jpg"),
       name: "Garnuch",
-      description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      description:
+        "Some quick example text to build on the card title and make up the bulk of the card's content.",
     },
   });
 
@@ -48,7 +51,8 @@ async function main() {
     data: {
       picture: fs.readFileSync(imagesPath + "/slodziak2.jpg"),
       name: "Sarnuch",
-      description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      description:
+        "Some quick example text to build on the card title and make up the bulk of the card's content.",
     },
   });
 
@@ -56,7 +60,8 @@ async function main() {
     data: {
       picture: fs.readFileSync(imagesPath + "/slodziak3.jpg"),
       name: "Jarnuch",
-      description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      description:
+        "Some quick example text to build on the card title and make up the bulk of the card's content.",
     },
   });
 
@@ -64,7 +69,8 @@ async function main() {
     data: {
       picture: fs.readFileSync(imagesPath + "/slodziak4.jpg"),
       name: "Dębica",
-      description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      description:
+        "Some quick example text to build on the card title and make up the bulk of the card's content.",
     },
   });
 
@@ -72,7 +78,8 @@ async function main() {
     data: {
       picture: fs.readFileSync(imagesPath + "/slodziak5.jpg"),
       name: "Cegła w pralce",
-      description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      description:
+        "Some quick example text to build on the card title and make up the bulk of the card's content.",
     },
   });
 
@@ -80,7 +87,8 @@ async function main() {
     data: {
       picture: fs.readFileSync(imagesPath + "/slodziak6.jpg"),
       name: "Rozpierdalator",
-      description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      description:
+        "Some quick example text to build on the card title and make up the bulk of the card's content.",
     },
   });
 

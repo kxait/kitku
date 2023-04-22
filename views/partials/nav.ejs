@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
       <i class="text-danger bi bi-balloon-heart-fill"></i>
       <strong>&nbsp;Fundacja Kitku</strong>
     </a>
@@ -19,21 +19,30 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <strong>
-            <a class="nav-link active" aria-current="page" href="#"> Home </a>
+            <a class="nav-link active" aria-current="page" href="/"> Kotki </a>
           </strong>
         </li>
+        <% if(isLoggedIn(req)) { %>
         <li class="nav-item">
-          <strong><a class="nav-link" href="#">Features</a></strong>
+          <strong
+            ><a class="nav-link" href="/adoptions">Moje adopcje</a></strong
+          >
+        </li>
+        <% } %>
+        <li class="nav-item">
+          <strong><a class="nav-link" href="/contact">Kontakt</a></strong>
         </li>
         <li class="nav-item">
-          <strong><a class="nav-link" href="#">Pricing</a></strong>
+          <strong><a class="nav-link" href="/about">O fundacji</a></strong>
         </li>
       </ul>
       <span class="navbar-text">
         <% const user = getProfileFromCache(req); if (user != null) { -%>
         <div>
           Witaj, <strong><%= user.name %></strong>!&nbsp;
-          <strong><a href="/logout" class="text-primary">Wyloguj</a></strong>
+          <a href="/logout">
+            <button class="btn btn-sm btn-outline-secondary">Wyloguj</button>
+          </a>
         </div>
         <% } else { -%>
         <a href="/login">

@@ -14,11 +14,11 @@ model User {
   name String
   surname String
   email String @unique
+  address String
   phone String @unique
   createdAt DateTime @default(now())
 
   passwordHash String
-  passwordSalt String
 
   adoptions Adoption[]
 }
@@ -57,7 +57,6 @@ model AdoptionEvent {
   type Int
   // json
   data String
-	@@map("AdoptionEvents")
 
   createdAt DateTime @default(now())
 

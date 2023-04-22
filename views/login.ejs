@@ -5,11 +5,12 @@
   }
 </style>
 <div id="login" class="mx-auto">
-  <div class="card">
+  <h1>Zaloguj się</h1>
+  <div class="card shadow-sm">
     <div class="card-body">
       <form method="post" action="/login">
         <div class="mb-3">
-          <label for="email-input" class="form-label">Email address</label>
+          <label for="email-input" class="form-label">Adres e-mail</label>
           <input
             type="email"
             class="form-control"
@@ -19,7 +20,7 @@
           />
         </div>
         <div class="mb-3">
-          <label for="password-input" class="form-label">Password</label>
+          <label for="password-input" class="form-label">Hasło</label>
           <input
             type="password"
             class="form-control"
@@ -32,7 +33,11 @@
         <% if(error != null){ -%>
         <div class="text-danger mb-3"><%= error %></div>
         <% } -%>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary mb-3">Zaloguj się</button
+        ><br />
+        <a href="/register" class="text-secondary"
+          >Nie masz konta? Zarejestruj się</a
+        >
       </form>
     </div>
   </div>

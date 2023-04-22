@@ -1,0 +1,54 @@
+<%- include('partials/header') %>
+
+<style>
+  img#kitty {
+    max-height: 18rem;
+    max-width: 18rem;
+    object-fit: cover;
+  }
+  label[for="check-accept"] {
+    flex-basis: fit-content;
+  }
+</style>
+
+<div class="w-100">
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <img
+        class="rounded img-fluid d-block d-sm-none mw-100 shadow-sm"
+        src="/catImage/<%=kitty.id%>"
+        id="kitty"
+      />
+      <h1>Adopcja</h1>
+      <p class="mb-3"><strong>Imię kota:</strong>&nbsp;<%=kitty.name%></p>
+      <p class="mb-5">
+        <strong>Status:</strong>&nbsp;<%=adoption.status%><br />
+        <strong>Pracownik:</strong>&nbsp;<%=employeeName%>
+      </p>
+    </div>
+    <img
+      class="rounded img-fluid d-none d-sm-block shadow-sm"
+      src="/catImage/<%=kitty.id%>"
+      id="kitty"
+    />
+  </div>
+  <div>
+    <h3>Zdarzenia</h3>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <th>Data i czas</th>
+        <th>Typ zdarzenia</th>
+      </thead>
+      <tbody>
+        <% events.forEach(event => { -%>
+        <tr>
+          <td><%=event.createdAt %></td>
+          <td><%= event.type %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

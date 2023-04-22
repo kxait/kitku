@@ -1,0 +1,119 @@
+<%- include('partials/header') %>
+<style>
+  #register {
+    max-width: 578px;
+  }
+</style>
+<div id="register" class="mx-auto">
+  <h1>Zarejestruj się</h1>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form method="post" action="/register">
+        <div class="mb-3 d-flex">
+          <div class="flex-grow-1 me-1">
+            <label for="name-input" class="form-label">Imie</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name-input"
+              name="name"
+              value="Karol"
+            />
+          </div>
+          <div class="flex-grow-1 mw-1">
+            <label for="surname-input" class="form-label">Nazwisko</label>
+            <input
+              type="text"
+              class="form-control"
+              id="surname-input"
+              name="surname"
+              value="Krawczyk"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email-input" class="form-label">Adres e-mail</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email-input"
+            name="email"
+            value="user2@user.pl"
+          />
+        </div>
+        <div class="mb-3 d-flex">
+          <div class="flex-grow-1 me-1">
+            <label for="password-input" class="form-label">Hasło</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password-input"
+              name="password"
+              value="user"
+            />
+          </div>
+          <div class="flex-grow-1 mw-1">
+            <label for="confirm-password-input" class="form-label"
+              >Potwierdź hasło</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="confirm-password-input"
+              name="confirm-password"
+              value="user"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="phone-input" class="form-label">Nr telefonu</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="phone-input"
+            name="phone"
+            value="213769420"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="street-input" class="form-label">Ulica i numer</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="street-input"
+            name="street"
+            value="Topolowa 21"
+          />
+        </div>
+        <div class="mb-3 d-flex">
+          <div class="flex-grow-1 me-1">
+            <label for="city-input" class="form-label">Miasto</label>
+            <input
+              type="text"
+              class="form-control"
+              id="city-input"
+              name="city"
+              value="Pitulice"
+            />
+          </div>
+          <div class="flex-grow-1 mw-1">
+            <label for="postcode-input" class="form-label">Kod pocztowy</label>
+            <input
+              type="text"
+              class="form-control"
+              id="postcode-input"
+              name="postcode"
+              value="21-370"
+            />
+          </div>
+        </div>
+        <% if(error != null){ -%>
+        <div class="text-danger mb-3"><%= error %></div>
+        <% } -%>
+        <input type="hidden" name="redirect" value="<%=redirect%>" />
+        <button type="submit" class="btn btn-primary">Zarejestruj się</button>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') %>

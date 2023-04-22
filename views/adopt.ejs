@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+
+<style>
+  img#kitty {
+    max-height: 18rem;
+    max-width: 18rem;
+    object-fit: cover;
+  }
+  label[for=check-accept] {
+    flex-basis: fit-content;
+  }
+</style>
+
+<div class="w-100">
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <img class="rounded img-fluid d-block d-sm-none mw-100 shadow-sm" src="/catImage/<%=kitty.id%>" id="kitty" />
+      <h1>Rozpocznij adopcję</h1>
+      <p class="mb-5"><strong>Imię kota:</strong>&nbsp;<%=kitty.name%></p>
+      <p>
+        <h3>Twoje dane:</h3>
+        <strong>Imię i nazwisko:</strong>&nbsp; <%=user.name%>
+        <%=user.surname%><br />
+        <strong>Adres nowego domu:</strong>&nbsp;<%=user.address%><br/>
+        <strong>Numer telefonu:</strong>&nbsp;<%=user.phone%><br/>
+        <strong>Adres e-mail:</strong>&nbsp;<%=user.email%><br/>
+      </p>
+    </div>
+    <img class="rounded img-fluid d-none d-sm-block shadow-sm" src="/catImage/<%=kitty.id%>" id="kitty" />
+  </div>
+  <form method="post">
+    <div class="d-flex flex-basis mb-3">
+      <input class="form-check-input me-3" type="checkbox" name="accept" id="check-accept" required aria-required="true">
+      <label class="form-check-label" for="check-accept">Potwierdzam, że wysyłając ten formularz zapoznałem/am się z <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">zasadami wysyłania zgłoszeń adopcyjnych</a> oraz wyrażam chęć adopcji oraz zgodę na kontakt ze mną przez jednego z pracowników Fundacji</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Wyślij zgłoszenie adopcyjne</button>
+  </form>
+</div>
+<%- include('partials/footer') %>

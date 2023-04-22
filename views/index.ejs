@@ -1,5 +1,6 @@
 <%- include('partials/header') %>
 
+<h1>Kotki szukające domu</h1>
 <div id="cats" class="d-flex">
   <% kitties.forEach(kitty => { -%>
   <div class="card shadow-sm">
@@ -7,7 +8,7 @@
     <div class="card-body">
       <h5 class="card-title"><%= kitty.name %></h5>
       <p class="card-text"><%= kitty.description %></p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <a href="/cat/<%=kitty.id%>" class="btn btn-primary">Zobacz</a>
     </div>
   </div>
   <% }); %>

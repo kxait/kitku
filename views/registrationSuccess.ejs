@@ -1,0 +1,20 @@
+<%- include('partials/header') %>
+<style>
+  #login {
+    max-width: 578px;
+  }
+</style>
+<div id="register" class="mx-auto">
+  <h1>Zarejestruj się</h1>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <strong>Udało się!</strong><br />
+      Zaloguj się podając dane użyte przy rejestracji<br />
+      Możesz teraz powrócić to poprzedniej strony<br />
+      <a href="<%=redirect%>">
+        <button class="btn btn-primary mt-3">Powróć</button>
+      </a>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') %>

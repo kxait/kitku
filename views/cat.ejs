@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+
+<div class="w-100">
+  <img class="rounded img-fluid mb-3" src="/catImage/<%=kitty.id%>" />
+  <h1><%=kitty.name%></h1>
+  <p class="mb-3"><%=kitty.description%></p>
+  <% if(isLoggedIn(req)) { -%>
+  <a href="/adopt/<%=kitty.id%>">
+    <button class="btn btn-primary">Adoptuj</button>
+  </a>
+
+  <% } else { -%>
+  <a href="/login">
+    <button class="btn btn-primary">Zaloguj się się aby adoptować</button>
+  </a>
+  <% } -%>
+</div>
+
+<%- include('partials/footer') %>
