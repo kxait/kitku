@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  // USER = 0, ADMIN = 1
+  type Int @default(0)
+  name String
+  surname String
+  email String @unique
+  phone String @unique
+  createdAt DateTime @default(now())
+
+  passwordHash String
+  passwordSalt String
+
+  adoptions Adoption[]
+}
+
+model Kitty {
+   id Int @id @default(autoincrement())
+   name String
+   description String
+   picture Bytes
+   // NOT_ADOPTED = 0, ADOPTED = 1
+   status Int @default(0)
+   createdAt DateTime @default(now())
+   statusChangedAt DateTime @default(now())
+
+   adoptions Adoption[]
+}
+
+model Adoption {
+  id Int @id @default(autoincrement())
+  // BEGAN = 0, EVALUATING = 1, MISSING_INFO = 2, SUCCESS = 3, FAIL = 4
+  status Int @default(0)
+  employeeUserId Int
+
+  kittyId Int
+  kitty Kitty @relation(fields: [kittyId], references: [id])
+
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+
+  adoptionEvents AdoptionEvent[]
+}
+
+model AdoptionEvent {
+  id Int @id @default(autoincrement())
+  // CREATED_ADOPTION_NEW_USER = 0, CREATED_ADOPTION_EXISTING_USER = 1, ADOPTION_STATUS_CHANGED = 2
+  type Int
+  // json
+  data String
+	@@map("AdoptionEvents")
+
+  createdAt DateTime @default(now())
+
+  adoptionId Int
+  adoption Adoption @relation(fields: [adoptionId], references: [id])
+}
