@@ -30,10 +30,16 @@
         </li>
       </ul>
       <span class="navbar-text">
-        <button class="btn btn-outline-primary">
-          Zaloguj&nbsp;
-          <i class="bi bi-chevron-down"></i>
-        </button>
+        <% const user = getProfileFromCache(req); if (user != null) { -%>
+        <div>
+          Witaj, <strong><%= user.name %></strong>!&nbsp;
+          <strong><a href="/logout" class="text-primary">Wyloguj</a></strong>
+        </div>
+        <% } else { -%>
+        <a href="/login">
+          <button class="btn btn-outline-primary">Zaloguj</button>
+        </a>
+        <% } -%>
       </span>
     </div>
   </div>
