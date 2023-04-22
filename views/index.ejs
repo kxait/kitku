@@ -3,7 +3,7 @@
 <div id="cats" class="d-flex">
   <% kitties.forEach(kitty => { -%>
   <div class="card shadow-sm">
-    <img src="/img/slodziak7.jpg" class="card-img-top" alt="..." />
+    <img src="/catImage/<%=kitty.id%>" class="card-img-top" alt="..." />
     <div class="card-body">
       <h5 class="card-title"><%= kitty.name %></h5>
       <p class="card-text"><%= kitty.description %></p>
@@ -11,83 +11,5 @@
     </div>
   </div>
   <% }); %>
-
-  <div class="card shadow-sm">
-    <img src="/img/slodziak1.jpg" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">Garnuch</h5>
-      <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
-      </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-  <div class="card shadow-sm">
-    <img src="/img/slodziak2.jpg" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">Sarnuch</h5>
-      <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
-      </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-  <div class="card shadow-sm">
-    <img src="/img/slodziak3.jpg" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">Jarnuch</h5>
-      <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
-      </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-  <div class="card shadow-sm">
-    <img src="/img/slodziak4.jpg" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">Dębica</h5>
-      <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
-      </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-  <div class="card shadow-sm">
-    <img src="/img/slodziak5.jpg" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">Cegła w pralce</h5>
-      <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
-      </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-  <div class="card shadow-sm">
-    <img src="/img/slodziak6.jpg" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">Rozpierdalator</h5>
-      <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
-      </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-  <div class="card shadow-sm">
-    <img src="/img/slodziak7.jpg" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
-      </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
 </div>
 <%- include('partials/footer') %>

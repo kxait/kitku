@@ -6,6 +6,7 @@ const index = async (req, res) => {
     select: {
       name: true,
       description: true,
+      id: true,
     },
   });
 
