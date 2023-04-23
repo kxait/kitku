@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcrypt");
 const fs = require("fs");
+const { UserType } = require("../const/const");
 const prisma = new PrismaClient();
 
 const imagesPath = "public/img";
@@ -18,6 +19,8 @@ async function main() {
 
       address: "ul. Fajna 1, Pitulice",
 
+      type: UserType.USER,
+
       passwordHash: userHash,
     },
   });
@@ -33,6 +36,8 @@ async function main() {
       phone: "+48420692137",
 
       address: "",
+
+      type: UserType.ADMIN,
 
       passwordHash: adminHash,
     },

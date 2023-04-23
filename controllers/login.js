@@ -6,11 +6,6 @@ const bcrypt = require("bcrypt");
 const prisma = new PrismaClient();
 
 const loginGet = async (req, res) => {
-  if (getUserId(req) != null) {
-    res.redirect(303, "/");
-    return;
-  }
-
   res.render("login", {
     redirect: req.headers.referrer || req.headers.referer,
     error: null,
@@ -18,18 +13,6 @@ const loginGet = async (req, res) => {
 };
 
 const loginPost = async (req, res) => {
-  if (
-    req.body == undefined ||
-    [req.body.email, req.body.password, req.body.redirect].includes(undefined)
-  ) {
-    res.status(400);
-    res.render("login", {
-      redirect: req.body?.redirect ?? "/",
-      error: getLabel("SYSTEM_ERROR"),
-    });
-    return;
-  }
-
   const requestedUser = await prisma.user.findFirst({
     where: {
       email: req.body.email,
@@ -39,7 +22,7 @@ const loginPost = async (req, res) => {
   if (requestedUser == null) {
     res.status(400);
     res.render("login", {
-      redirect: req.body?.redirect ?? "/",
+      redirect: req.body.redirect,
       error: getLabel("BAD_LOGIN"),
     });
     return;

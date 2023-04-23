@@ -5,11 +5,6 @@ const { isLoggedIn } = require("../auth/auth");
 const prisma = new PrismaClient();
 
 const registerSuccess = async (req, res) => {
-  if (isLoggedIn(req)) {
-    res.redirect(303, "/");
-    return;
-  }
-
   let redirect = req.query.r;
   if (redirect == null) {
     redirect = "/";
@@ -24,12 +19,6 @@ const registerGet = async (req, res) => {
 };
 
 const registerPost = async (req, res) => {
-  if (!req.body) {
-    res.status(400);
-    res.render("register", { error: getLabel("SYSTEM_ERROR"), redirect: "/" });
-    return;
-  }
-
   const form = {
     name: req.body.name,
     surname: req.body.surname,
@@ -42,25 +31,6 @@ const registerPost = async (req, res) => {
     postcode: req.body.postcode,
     redirect: req.body.redirect,
   };
-
-  if (
-    [
-      "name",
-      "surname",
-      "email",
-      "password",
-      "confirmPassword",
-      "phone",
-      "street",
-      "city",
-      "postcode",
-      "redirect",
-    ].some((i) => !form[i])
-  ) {
-    res.status(400);
-    res.render("register", { error: getLabel("SYSTEM_ERROR"), redirect: "/" });
-    return;
-  }
 
   const redirect = req.body.redirect;
 

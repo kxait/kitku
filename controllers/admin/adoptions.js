@@ -1,18 +1,14 @@
 const { PrismaClient } = require("@prisma/client");
-const { getUserId } = require("../auth/auth");
-const { getLabel } = require("../i18n/i18n-pl");
+const { getLabel } = require("../../i18n/i18n-pl");
+const { isAdmin, getUserId } = require("../../auth/auth");
 
 const prisma = new PrismaClient();
 
-const adoptions = async (req, res) => {
-  const userId = getUserId(req);
-
+const adminAdoptions = async (req, res) => {
   const adoptions = await prisma.adoption.findMany({
-    where: {
-      userId,
-    },
     include: {
       kitty: true,
+      user: true,
       adoptionEvents: {
         orderBy: {
           createdAt: "desc",
@@ -29,9 +25,9 @@ const adoptions = async (req, res) => {
     ).toLocaleString(),
   }));
 
-  res.render("adoptions", { adoptions: adoptionsHumanFriendly });
+  res.render("admin/adoptions", { adoptions: adoptionsHumanFriendly });
 };
 
 module.exports = {
-  adoptions,
+  adminAdoptions,
 };

@@ -22,7 +22,13 @@
             <a class="nav-link active" aria-current="page" href="/"> Kotki </a>
           </strong>
         </li>
-        <% if(isLoggedIn(req)) { %>
+        <% if(isAdminCache(req)) { %>
+        <li class="nav-item">
+          <strong
+            ><a class="nav-link" href="/admin/adoptions">Adopcje</a></strong
+          >
+        </li>
+        <% } %> <% if(isLoggedIn(req) && !isAdminCache(req)) { %>
         <li class="nav-item">
           <strong
             ><a class="nav-link" href="/adoptions">Moje adopcje</a></strong

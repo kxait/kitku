@@ -5,12 +5,6 @@ const prisma = new PrismaClient();
 const cache = {};
 
 const catImage = async (req, res) => {
-  if (!req.params.catId || isNaN(parseInt(req.params.catId))) {
-    res.status(400);
-    res.send("oops");
-    return;
-  }
-
   const kittyId = parseInt(req.params.catId);
 
   if (cache[kittyId]) {

@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { UserType } = require("../common/const");
 const prisma = new PrismaClient();
 
 // userIds by auth token
@@ -35,6 +36,33 @@ const getUserId = (req) => {
 
 const isLoggedIn = (req) => getUserId(req) != null;
 
+const isAdmin = async (req) => {
+  const user = await getUser(req);
+  if (user == null) {
+    return false;
+  }
+
+  if (user.type != UserType.ADMIN) {
+    return false;
+  }
+
+  return true;
+};
+
+const isAdminCache = (req) => {
+  const user = getUserId(req);
+  if (user == null) {
+    return false;
+  }
+
+  const cacheUser = profilesCache[user];
+  if (cacheUser == null) {
+    return false;
+  }
+
+  return cacheUser.type == UserType.ADMIN;
+};
+
 const getUser = async (req) => {
   const userId = getUserId(req);
 
@@ -47,6 +75,8 @@ const getUser = async (req) => {
       id: userId,
     },
   });
+
+  profilesCache[userId] = user;
 
   return user;
 };
@@ -78,4 +108,6 @@ module.exports = {
   isLoggedIn,
   getProfileFromCache,
   logout,
+  isAdmin,
+  isAdminCache,
 };

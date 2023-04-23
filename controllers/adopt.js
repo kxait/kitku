@@ -1,14 +1,9 @@
 const { PrismaClient } = require("@prisma/client");
 const { isLoggedIn, getUser } = require("../auth/auth");
-const { AdoptionEvent } = require("../const/const");
+const { AdoptionEvent } = require("../common/const");
 const prisma = new PrismaClient();
 
 const adoptGet = async (req, res) => {
-  if (!isLoggedIn(req)) {
-    res.redirect(303, "/");
-    return;
-  }
-
   if (!req.params.catId || isNaN(parseInt(req.params.catId))) {
     res.status(400);
     res.send("oops");

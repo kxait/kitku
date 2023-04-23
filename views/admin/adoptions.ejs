@@ -1,0 +1,29 @@
+<%- include('../partials/header') %>
+<div class="w-100">
+  <h1>Wszystkie adopcje</h1>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <th>Imię kota</th>
+      <th>Ostatnia zmiana</th>
+      <th>Zgłaszający</th>
+      <th>Status</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% adoptions.forEach(adoption => { %>
+      <tr>
+        <td><%=adoption.kitty.name%></td>
+        <td><%=adoption.lastChange%></td>
+        <td><%=adoption.user.name%> <%=adoption.user.surname%></td>
+        <td><%=adoption.status%></td>
+        <td class="text-center">
+          <a href="/admin/adoption/<%=adoption.id%>"
+            ><button class="btn btn-outline-primary btn-sm">Zobacz</button></a
+          >
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/footer') %>
