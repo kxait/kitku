@@ -1,0 +1,141 @@
+<%- include('../partials/header') %>
+
+<style>
+  img#kitty {
+    max-height: 18rem;
+    max-width: 18rem;
+    object-fit: cover;
+  }
+</style>
+
+<script type="application/javascript">
+  const setStatus = async (adoptionId, status) => {
+    const body = {
+      status: parseInt(status),
+    };
+
+    const result = await fetch(`/api/admin/adoption/${adoptionId}/status`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
+    if (result.ok) {
+      location.reload();
+    }
+
+    console.log(result);
+  };
+</script>
+
+<div class="w-100">
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <img
+        class="rounded img-fluid d-block d-sm-none mw-100 shadow-sm"
+        src="/catImage/<%=kitty.id%>"
+        id="kitty"
+      />
+      <h1>Adopcja</h1>
+      <div class="mb-3">
+        <strong>Imię kota:</strong><span>&nbsp;<%=kitty.name%></span>
+      </div>
+      <div class="mb-5">
+        <div class="d-flex align-items-center">
+          <strong>Status:&nbsp;</strong>
+          <span id="status"><%=adoption.status%></span>
+          <div class="dropdown ms-2">
+            <button
+              class="btn btn-secondary btn-sm dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Zmień status
+            </button>
+            <ul
+              id="status-dropdown"
+              class="dropdown-menu"
+              aria-labelledby="dropdownMenuButton1"
+            >
+              <li><a class="dropdown-item" data-status="0">Nowa</a></li>
+              <li>
+                <a class="dropdown-item" data-status="1"
+                  >W trakcie sprawdzania</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" data-status="2"
+                  >Brak informacji. Skontakuj się z nami</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" data-status="3"
+                  >Kot znalazł nowy dom!</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" data-status="4">Adopcja anulowana</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <strong>Pracownik:</strong><span>&nbsp;<%=employeeName%></span><br />
+        <strong>Data stworzenia:</strong
+        ><span>&nbsp;<%=adoption.createdAt%></span><br />
+      </div>
+      <h3>Dane adoptującego</h3>
+      <div class="mb-3">
+        <strong>Imie i nazwisko:</strong
+        ><span>&nbsp;<%=adoption.user.name%> <%=adoption.user.surname%></span
+        ><br />
+        <strong>Adres e-mail:</strong><span>&nbsp;<%=adoption.user.email%></span
+        ><br />
+        <strong>Nr telefonu:</strong><span>&nbsp;<%=adoption.user.phone%></span
+        ><br />
+        <strong>Adres:</strong><span>&nbsp;<%=adoption.user.address%></span
+        ><br />
+      </div>
+    </div>
+    <img
+      class="rounded img-fluid d-none d-sm-block shadow-sm"
+      src="/catImage/<%=kitty.id%>"
+      id="kitty"
+    />
+  </div>
+  <div>
+    <h3>Zdarzenia</h3>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <th>Data i czas</th>
+        <th>Typ zdarzenia</th>
+      </thead>
+      <tbody>
+        <% events.forEach(event => { -%>
+        <tr>
+          <td><%=event.createdAt %></td>
+          <td><%= event.type %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="application/javascript">
+  // set status buttons to send requests
+
+  const adoptionId = "<%=adoption.id%>";
+
+  const statusButtons = document.querySelectorAll(
+    "ul#status-dropdown a.dropdown-item"
+  );
+  for (const button of statusButtons) {
+    button.onclick = () => setStatus(adoptionId, button.dataset.status);
+  }
+</script>
+
+<%- include('../partials/footer') %>

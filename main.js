@@ -32,10 +32,15 @@ const {
 const {
   requireIntParams,
   requireBodyFields,
+  requireIntBodyFields,
 } = require("./common/middleware.js");
+const {
+  adminAdoption,
+  adminAdoptionChangeStatus,
+} = require("./controllers/admin/adoption.js");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
 app.set("views", join(__dirname, "views"));
@@ -45,8 +50,8 @@ app.locals.isLoggedIn = isLoggedIn;
 app.locals.getProfileFromCache = getProfileFromCache;
 app.locals.isAdminCache = isAdminCache;
 
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(join(__dirname, "public")));
 app.use(cookieParser());
 
@@ -107,6 +112,21 @@ app.get(
 app.get("/adoptions", requireLoggedInUser, adoptions);
 
 app.get("/admin/adoptions", requireLoggedInAdmin, adminAdoptions);
+app.get(
+  "/admin/adoption/:adoptionId",
+  [requireLoggedInAdmin, requireIntParams("adoptionId")],
+  adminAdoption
+);
+
+app.post(
+  "/api/admin/adoption/:adoptionId/status",
+  [
+    requireLoggedInAdmin,
+    requireIntParams("adoptionId"),
+    requireIntBodyFields("status"),
+  ],
+  adminAdoptionChangeStatus
+);
 
 app.listen(port, (req, res) => {
   console.log(`server is running on port ${port}`);
