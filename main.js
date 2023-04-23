@@ -76,7 +76,7 @@ app.post(
       "surname",
       "email",
       "password",
-      "confirmPassword",
+      "confirm-password",
       "phone",
       "street",
       "city",

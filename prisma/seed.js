@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcrypt");
 const fs = require("fs");
-const { UserType } = require("../const/const");
+const { UserType } = require("../common/const");
 const prisma = new PrismaClient();
 
 const imagesPath = "public/img";
