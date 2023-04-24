@@ -46,7 +46,7 @@ async function main() {
   await prisma.kitty.create({
     data: {
       picture: fs.readFileSync(imagesPath + "/slodziak1.jpg"),
-      name: "Garnuch",
+      name: "Morlinki",
       description:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
     },
@@ -55,7 +55,7 @@ async function main() {
   await prisma.kitty.create({
     data: {
       picture: fs.readFileSync(imagesPath + "/slodziak2.jpg"),
-      name: "Sarnuch",
+      name: "Berlinki",
       description:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
     },
@@ -64,7 +64,7 @@ async function main() {
   await prisma.kitty.create({
     data: {
       picture: fs.readFileSync(imagesPath + "/slodziak3.jpg"),
-      name: "Jarnuch",
+      name: "Drukarka",
       description:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
     },
@@ -91,7 +91,7 @@ async function main() {
   await prisma.kitty.create({
     data: {
       picture: fs.readFileSync(imagesPath + "/slodziak6.jpg"),
-      name: "Rozpierdalator",
+      name: "Mantykora",
       description:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
     },
@@ -101,7 +101,7 @@ async function main() {
     data: {
       picture: fs.readFileSync(imagesPath + "/slodziak7.jpg"),
       name: "Roszpunka",
-      description: "najwiekszy slodziak na ziemi :3",
+      description: "najwiekszy slodziak na ziemi",
     },
   });
 
