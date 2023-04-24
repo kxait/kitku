@@ -1,12 +1,20 @@
 const { PrismaClient } = require("@prisma/client");
 const { getUserId } = require("../../auth/auth");
 const { getLabel } = require("../../i18n/i18n-pl");
-const { AdoptionEvent } = require("../../common/const");
+const { AdoptionEvent, UserType } = require("../../common/const");
 const prisma = new PrismaClient();
 
-const adminAdoption = async (req, res) => {
-  const adoptionId = parseInt(req.params.adoptionId);
+const getEmployees = async () => {
+  const employees = await prisma.user.findMany({
+    where: {
+      type: UserType.ADMIN,
+    },
+  });
 
+  return employees;
+};
+
+const getAdoption = async (adoptionId) => {
   const adoption = await prisma.adoption.findUnique({
     where: {
       id: adoptionId,
@@ -29,9 +37,13 @@ const adminAdoption = async (req, res) => {
     status: getLabel(`ADOPTION_STATUS_${adoption.status}`),
   };
 
+  return adoptionHumanFriendly;
+};
+
+const getEvents = async (adoptionId) => {
   const events = await prisma.adoptionEvent.findMany({
     where: {
-      adoptionId: adoption.id,
+      adoptionId,
     },
   });
 
@@ -39,6 +51,16 @@ const adminAdoption = async (req, res) => {
     type: getLabel(`EVENT_TYPE_${event.type}`),
     createdAt: new Date(event.createdAt).toLocaleString(),
   }));
+
+  return eventsHumanFriendly;
+};
+
+const adminAdoption = async (req, res) => {
+  const adoptionId = parseInt(req.params.adoptionId);
+
+  const adoption = await getAdoption(adoptionId);
+
+  const eventsHumanFriendly = await getEvents(adoptionId);
 
   let employee = await prisma.user.findUnique({
     where: {
@@ -52,11 +74,14 @@ const adminAdoption = async (req, res) => {
     employeeName = `${employee.name} ${employee.surname}`;
   }
 
+  const employees = await getEmployees();
+
   res.render("admin/adoption", {
-    adoption: adoptionHumanFriendly,
+    adoption,
     kitty: adoption.kitty,
     events: eventsHumanFriendly,
     employeeName,
+    employees,
   });
 };
 
@@ -102,7 +127,50 @@ const adminAdoptionChangeStatus = async (req, res) => {
   res.end();
 };
 
+const adminAdoptionChangeAssigned = async (req, res) => {
+  const adoptionId = parseInt(req.params.adoptionId);
+
+  const adoption = await prisma.adoption.findUnique({
+    where: {
+      id: adoptionId,
+    },
+  });
+
+  if (adoption == null) {
+    res.status(400);
+    return;
+  }
+
+  const oldAssignee = adoption.employeeUserId;
+  const newAssignee = req.body.employeeUserId;
+
+  await prisma.adoption.update({
+    where: {
+      id: adoptionId,
+    },
+    data: {
+      employeeUserId: newAssignee,
+    },
+  });
+
+  await prisma.adoptionEvent.create({
+    data: {
+      type: AdoptionEvent.ADOPTION_ASSIGNEE_CHANGED,
+      data: JSON.stringify({
+        from: oldAssignee,
+        to: newAssignee,
+        changedBy: getUserId(req),
+      }),
+      adoptionId,
+    },
+  });
+
+  res.status(204);
+  res.end();
+};
+
 module.exports = {
   adminAdoption,
   adminAdoptionChangeStatus,
+  adminAdoptionChangeAssigned,
 };

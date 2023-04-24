@@ -1,0 +1,93 @@
+<div
+  class="modal fade"
+  id="new-cat-modal"
+  tabindex="-1"
+  aria-labelledby="cat-modal-label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cat-modal-label">Nowy kot</h5>
+      </div>
+      <form method="POST" enctype="multipart/form-data">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name-input">Imie</label>
+            <input
+              type="text"
+              id="name-input"
+              class="form-control"
+              name="name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="description-input">Opis</label>
+            <textarea
+              id="description-input"
+              class="form-control"
+              name="description"
+              required
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label>Status</label><br />
+            <div class="btn-group-vertical" role="group">
+              <input
+                type="radio"
+                class="btn-check"
+                id="new-cat-status-0"
+                name="new-cat-status"
+                value="0"
+                checked
+              />
+              <label
+                class="btn btn-outline-primary"
+                name="new-cat-status"
+                for="new-cat-status-0"
+                >Nieadoptowany</label
+              >
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="new-cat-status"
+                id="new-cat-status-1"
+                value="1"
+              />
+              <label class="btn btn-outline-primary" for="new-cat-status-1"
+                >Adoptowany</label
+              >
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="new-cat-status"
+                id="new-cat-status-2"
+                value="2"
+              />
+              <label class="btn btn-outline-primary" for="new-cat-status-2"
+                >Ukryty</label
+              >
+            </div>
+          </div>
+          <div class="mb-3">
+            <label>Zdjęcie</label>
+            <input type="file" required class="form-control" name="picture" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Anuluj
+          </button>
+          <button type="submit" class="btn btn-primary">Stwórz</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

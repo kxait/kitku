@@ -3,6 +3,7 @@ const express = require("express");
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const multer = require("multer");
 
 const { index } = require("./controllers/index.js");
 const { loginGet, loginPost } = require("./controllers/login.js");
@@ -37,7 +38,16 @@ const {
 const {
   adminAdoption,
   adminAdoptionChangeStatus,
+  adminAdoptionChangeAssigned,
 } = require("./controllers/admin/adoption.js");
+const {
+  adminCats,
+  adminCatsPost,
+  adminCatDetails,
+  adminUpdateCatDetails,
+  adminUpdateCatPicture,
+  adminUpdateCatsOrder,
+} = require("./controllers/admin/cats.js");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -117,7 +127,13 @@ app.get(
   [requireLoggedInAdmin, requireIntParams("adoptionId")],
   adminAdoption
 );
+app.get("/admin/cats", requireLoggedInAdmin, adminCats);
 
+app.get(
+  "/api/admin/cats/:catId",
+  [requireLoggedInAdmin, requireIntParams("catId")],
+  adminCatDetails
+);
 app.post(
   "/api/admin/adoption/:adoptionId/status",
   [
@@ -127,6 +143,57 @@ app.post(
   ],
   adminAdoptionChangeStatus
 );
+
+app.post(
+  "/api/admin/adoption/:adoptionId/employee",
+  [
+    requireLoggedInAdmin,
+    requireIntParams("adoptionId"),
+    requireIntBodyFields("employeeUserId"),
+  ],
+  adminAdoptionChangeAssigned
+);
+
+const m = multer();
+
+// CREATE cat
+app.post(
+  "/admin/cats",
+  [
+    m.fields([{ name: "picture", maxCount: 1 }]),
+    requireLoggedInAdmin,
+    requireBodyFields("name", "description", "new-cat-status"),
+    requireIntBodyFields("new-cat-status"),
+  ],
+  adminCatsPost
+);
+
+// UPDATE cat
+app.post(
+  "/admin/cats/update",
+  [
+    m.none(),
+    requireLoggedInAdmin,
+    requireBodyFields("name", "description", "status", "cat-id"),
+    requireIntBodyFields("cat-id", "status"),
+  ],
+  adminUpdateCatDetails
+);
+
+// UPDATE cat pic
+app.post(
+  "/admin/cats/updatePicture",
+  [
+    requireLoggedInAdmin,
+    m.fields([{ name: "picture", maxCount: 1 }]),
+    requireBodyFields("cat-id"),
+    requireIntBodyFields("cat-id"),
+  ],
+  adminUpdateCatPicture
+);
+
+// UPDATE cats order
+app.post("/api/admin/cats/order", [requireLoggedInAdmin], adminUpdateCatsOrder);
 
 app.listen(port, (req, res) => {
   console.log(`server is running on port ${port}`);

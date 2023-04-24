@@ -13,6 +13,10 @@ const labels = {
   EVENT_TYPE_0: "Stworzona",
   EVENT_TYPE_1: "Stworzona",
   EVENT_TYPE_2: "Zmiana statusu",
+  EVENT_TYPE_3: "Zmiana przydzielonego pracownika",
+  KITTY_STATUS_0: "Nieadoptowany",
+  KITTY_STATUS_1: "Adoptowany",
+  KITTY_STATUS_2: "Ukryty",
 };
 
 const getLabel = (label) => labels[label];

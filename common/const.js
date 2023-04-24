@@ -2,6 +2,7 @@ const AdoptionEvent = {
   CREATED_ADOPTION_NEW_USER: 0,
   CREATED_ADOPTION_EXISTING_USER: 1,
   ADOPTION_STATUS_CHANGED: 2,
+  ADOPTION_ASSIGNEE_CHANGED: 3,
 };
 
 const AdoptionStatus = {
@@ -17,8 +18,15 @@ const UserType = {
   ADMIN: 1,
 };
 
+const KittyStatus = {
+  NOT_ADOPTED: 0,
+  ADOPTED: 1,
+  HIDDEN: 2,
+};
+
 module.exports = {
   AdoptionEvent,
   AdoptionStatus,
   UserType,
+  KittyStatus,
 };

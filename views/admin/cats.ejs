@@ -1,0 +1,157 @@
+<%- include('../partials/header') %>
+
+<div class="w-100">
+  <div class="d-flex align-items-center">
+    <h1>Edytuj kotki</h1>
+    <button
+      type="button"
+      class="btn btn-primary ms-2"
+      data-bs-toggle="modal"
+      data-bs-target="#new-cat-modal"
+    >
+      Nowy
+    </button>
+  </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <th>ID</th>
+      <th>Imię kota</th>
+      <th>Status</th>
+      <th>Liczba zgłoszeń</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% kitties.forEach((kitty, i) => { %>
+      <tr>
+        <td class="cat-id"><%=kitty.id%></td>
+        <td><%=kitty.name%></td>
+        <td><%=kitty.status%></td>
+        <td><%=kitty.adoptionsCount%></td>
+        <td class="text-center">
+          <button
+            class="btn btn-primary btn-sm open-button"
+            data-id="<%=kitty.id%>"
+          >
+            Otwórz
+          </button>
+          <a href="/admin/adoptions?catId=<%=kitty.id%>"
+            ><button 
+              <% if(kitty.adoptionsCount == 0) { %>
+                disabled
+                <% } %>
+              class="btn btn-outline-primary btn-sm"
+              >Adopcje</button></a
+          >
+          <button
+            <% if(i == kitties.length - 1) { %>
+              disabled
+            <% } %>
+            class="btn btn-outline-secondary btn-sm"
+            onclick="moveDown(parseInt('<%=i%>'))"
+          >
+            <i class="bi bi-arrow-down"></i>
+          </button>
+          <button
+            <% if(i == 0) { %>
+              disabled
+            <% } %>
+            class="btn btn-outline-secondary btn-sm"
+            onclick="moveUp(parseInt('<%=i%>'))"
+          >
+            <i class="bi bi-arrow-up"></i>
+          </button>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/createCat') %> <%- include('../partials/editCat') %>
+
+<script type="application/javascript"></script>
+
+<%- include('../partials/footer') %>
+<script type="application/javascript">
+  const openModal = async (catId) => {
+    const catDetails = await fetch(`/api/admin/cats/${catId}`);
+    const catDetailsContent = await catDetails.json();
+
+    document.getElementById("edit-name-input").value = catDetailsContent.name;
+    document.getElementById("edit-description-input").innerText =
+      catDetailsContent.description;
+    document.getElementById("edit-cat-picture").src = `/catImage/${catId}`;
+
+    document.getElementById(
+      `edit-cat-status-${catDetailsContent.status}`
+    ).checked = true;
+
+    document
+      .querySelectorAll('input[name="cat-id"]')
+      .forEach((input) => (input.value = catId));
+
+    new bootstrap.Modal(document.getElementById("edit-cat-modal")).show();
+  };
+  const editButtons = document.querySelectorAll(".open-button");
+  for (const button of editButtons) {
+    button.onclick = () => {
+      openModal(button.dataset.id);
+    };
+  }
+
+  const updateOrder = async (order) => {
+    const result = await fetch("/api/admin/cats/order", {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(order),
+    });
+
+    if (result.ok) {
+      location.reload();
+    }
+  };
+
+  const createOrder = () => {
+    const ids = document.querySelectorAll("td.cat-id");
+
+    const orders = [];
+
+    ids.forEach((id, i) => {
+      orders.push({
+        catId: parseInt(id.innerText),
+        displayOrder: i,
+      });
+    });
+
+    return orders;
+  };
+
+  const moveDown = (thisIndex) => {
+    const orders = createOrder();
+
+    orders[thisIndex].displayOrder++;
+    orders[thisIndex + 1].displayOrder--;
+
+    const order = {};
+    for (const i of orders) {
+      order[i.catId] = i.displayOrder;
+    }
+
+    updateOrder(order);
+  };
+
+  const moveUp = (thisIndex) => {
+    const orders = createOrder();
+
+    orders[thisIndex].displayOrder--;
+    orders[thisIndex - 1].displayOrder++;
+
+    const order = {};
+    for (const i of orders) {
+      order[i.catId] = i.displayOrder;
+    }
+
+    updateOrder(order);
+  };
+</script>

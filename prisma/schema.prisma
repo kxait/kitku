@@ -28,10 +28,12 @@ model Kitty {
    name String
    description String
    picture Bytes
-   // NOT_ADOPTED = 0, ADOPTED = 1
+   // NOT_ADOPTED = 0, ADOPTED = 1, HIDDEN = 2
    status Int @default(0)
    createdAt DateTime @default(now())
    statusChangedAt DateTime @default(now())
+
+   displayOrder Int @default(0)
 
    adoptions Adoption[]
 }
@@ -55,7 +57,7 @@ model Adoption {
 
 model AdoptionEvent {
   id Int @id @default(autoincrement())
-  // CREATED_ADOPTION_NEW_USER = 0, CREATED_ADOPTION_EXISTING_USER = 1, ADOPTION_STATUS_CHANGED = 2
+  // CREATED_ADOPTION_NEW_USER = 0, CREATED_ADOPTION_EXISTING_USER = 1, ADOPTION_STATUS_CHANGED = 2, ADOPTION_ASSIGNEE_CHANGED = 3
   type Int
   // json
   data String

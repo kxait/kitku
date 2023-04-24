@@ -1,6 +1,10 @@
 <%- include('../partials/header') %>
 <div class="w-100">
-  <h1>Wszystkie adopcje</h1>
+  <% if(!req.query?.catId || isNaN(req.query?.catId)) { %>
+  <h1>Twoje adopcje</h1>
+  <% } else { %>
+  <h1>Adopcje dla kota o id <%= req.query.catId %></h1>
+  <% } %>
   <table class="table table-bordered table-striped">
     <thead>
       <th>Imię kota</th>

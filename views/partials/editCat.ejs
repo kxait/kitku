@@ -1,0 +1,109 @@
+<div
+  class="modal fade"
+  id="edit-cat-modal"
+  tabindex="-2"
+  role="dialog"
+  aria-labelledby="edit-cat-modal-label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="edit-cat-modal-label">Edytuj kota</h5>
+      </div>
+
+      <div class="modal-body">
+        <label>Zdjęcie</label>
+        <img id="edit-cat-picture" class="img-fluid rounded mb-1" />
+        <form
+          method="post"
+          action="/admin/cats/updatePicture"
+          enctype="multipart/form-data"
+          id="form-update-cat-photo"
+        >
+          <input type="hidden" name="cat-id" />
+          <input type="file" required class="form-control" name="picture" />
+          <button type="submit" class="btn btn-primary mt-3">Wyślij</button>
+        </form>
+      </div>
+      <form
+        method="post"
+        action="/admin/cats/update"
+        enctype="multipart/form-data"
+      >
+        <input type="hidden" name="cat-id" />
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name-input">Imie</label>
+            <input
+              type="text"
+              id="edit-name-input"
+              class="form-control"
+              name="name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="description-input">Opis</label>
+            <textarea
+              id="edit-description-input"
+              class="form-control"
+              name="description"
+              required
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label>Status</label><br />
+            <div class="btn-group-vertical" role="group">
+              <input
+                type="radio"
+                class="btn-check"
+                id="edit-cat-status-0"
+                name="status"
+                value="0"
+              />
+              <label
+                class="btn btn-outline-primary"
+                name="status"
+                for="edit-cat-status-0"
+                >Nieadoptowany</label
+              >
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="status"
+                id="edit-cat-status-1"
+                value="1"
+              />
+              <label class="btn btn-outline-primary" for="edit-cat-status-1"
+                >Adoptowany</label
+              >
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="status"
+                id="edit-cat-status-2"
+                value="2"
+              />
+              <label class="btn btn-outline-primary" for="edit-cat-status-2"
+                >Ukryty</label
+              >
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Anuluj
+          </button>
+          <button type="submit" class="btn btn-primary">Zapisz</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

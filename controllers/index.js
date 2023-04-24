@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { KittyStatus } = require("../common/const");
 const prisma = new PrismaClient();
 
 const index = async (req, res) => {
@@ -7,6 +8,12 @@ const index = async (req, res) => {
       name: true,
       description: true,
       id: true,
+    },
+    where: {
+      status: KittyStatus.NOT_ADOPTED,
+    },
+    orderBy: {
+      displayOrder: "asc",
     },
   });
 

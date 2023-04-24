@@ -1,6 +1,13 @@
 <%- include('partials/header') %>
 
-<h1>Kotki szukające domu</h1>
+<div class="d-flex align-items-center">
+  <h1>Kotki szukające domu</h1>
+  <% if(isAdminCache(req)) { %>
+  <a href="/admin/cats"
+    ><button class="btn btn-primary ms-3">Edytuj kotki</button></a
+  >
+  <% } %>
+</div>
 <div id="cats" class="d-flex">
   <% kitties.forEach(kitty => { -%>
   <div class="card shadow-sm">

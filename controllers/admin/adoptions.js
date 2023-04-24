@@ -5,7 +5,18 @@ const { isAdmin, getUserId } = require("../../auth/auth");
 const prisma = new PrismaClient();
 
 const adminAdoptions = async (req, res) => {
+  const catId = parseInt(req.query.catId);
+  let where = {};
+  if (catId != null || isNaN(catId)) {
+    where = {
+      where: {
+        kittyId: catId,
+      },
+    };
+  }
+
   const adoptions = await prisma.adoption.findMany({
+    ...where,
     include: {
       kitty: true,
       user: true,

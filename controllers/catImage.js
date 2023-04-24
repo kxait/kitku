@@ -7,11 +7,11 @@ const cache = {};
 const catImage = async (req, res) => {
   const kittyId = parseInt(req.params.catId);
 
-  if (cache[kittyId]) {
-    res.setHeader("content-type", "image/jpeg");
-    res.send(cache[kittyId]);
-    return;
-  }
+  // if (cache[kittyId]) {
+  //   res.setHeader("content-type", "image/jpeg");
+  //   res.send(cache[kittyId]);
+  //   return;
+  // }
 
   const picture = await prisma.kitty.findUnique({
     where: {
@@ -28,7 +28,7 @@ const catImage = async (req, res) => {
     return;
   }
 
-  cache[kittyId] = picture.picture;
+  // cache[kittyId] = picture.picture;
 
   res.setHeader("content-type", "image/jpeg");
   res.send(picture.picture);
